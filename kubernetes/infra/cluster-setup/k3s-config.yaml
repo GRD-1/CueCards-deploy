@@ -1,0 +1,13 @@
+server: true
+disable-cloud-controller: true
+node-name: ${KUBE_MASTER_NODE_NAME}
+node-ip: ${KUBE_NODE_IP}
+node-external-ip: ${KUBE_NODE_IP_EXTERNAL}
+
+flannel-backend: vxlan
+
+cluster-cidr: 10.42.0.0/16
+service-cidr: 10.43.0.0/16
+
+disable:
+  - traefik

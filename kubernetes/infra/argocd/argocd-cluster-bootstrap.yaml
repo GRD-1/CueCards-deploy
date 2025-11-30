@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-cluster-bootstrap
+  namespace: argocd
+
+spec:
+  project: default
+  source:
+    repoURL: git@github.com/GRD-1/CueCards-deploy.git
+    targetRevision: deploy
+    path: kubernetes/clusters/cluster-a/argocd-apps
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

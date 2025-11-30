@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cuecards-web
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: git@github.com/GRD-1/CueCards-deploy.git
+    targetRevision: deploy
+    path: kubernetes/clusters/cluster-a/apps/web
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cuecards
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

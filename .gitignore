@@ -1,0 +1,16 @@
+.idea/
+.idea/**
+
+.vscode
+.vscode/**
+
+.cursor/rules/
+.github/instructions/nx.instructions.md
+
+node_modules
+db
+dist/
+
+.env
+**/.env
+key.txt

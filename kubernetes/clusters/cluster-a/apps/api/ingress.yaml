@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cuecards-api-ingress
+  namespace: cuecards
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - api.cuecards.online
+    secretName: api-tls
+  rules:
+    - host: api.cuecards.online
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: cuecards-api
+                port:
+                  number: 80
+                  

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cuecards-web
+  namespace: cuecards
+  labels:
+    app: cuecards-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cuecards-web
+  template:
+    metadata:
+      labels:
+        app: cuecards-web
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secrets
+      containers:
+      - name: cuecards-web
+        image: ghcr.io/grd-1/cuecards-web:e3917fdca4b91a2356c69eb6d38353f33fab3296
+        ports:
+          - containerPort: 80
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi
