@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: git@github.com/GRD-1/CueCards-deploy.git
-    targetRevision: deploy
+    targetRevision: HEAD
     path: kubernetes/clusters/cluster-a/apps/api
   destination:
     server: https://kubernetes.default.svc
