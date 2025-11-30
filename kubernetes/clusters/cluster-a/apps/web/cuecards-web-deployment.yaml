@@ -18,14 +18,21 @@ spec:
       imagePullSecrets:
         - name: ghcr-secrets
       containers:
-      - name: cuecards-web
-        image: ghcr.io/grd-1/cuecards-web:e3917fdca4b91a2356c69eb6d38353f33fab3296
-        ports:
-          - containerPort: 80
-        resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
-          limits:
-            cpu: 200m
-            memory: 256Mi
+        - name: cuecards-web
+          image: ghcr.io/grd-1/cuecards-web:e3917fdca4b91a2356c69eb6d38353f33fab3296
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+          env:
+            - name: APP_WEB_ID
+              value: "a7ef69ad-708d-4f8e-b20c-98b99e36ffdc"
+            - name: APP_WEB_NAME
+              value: "cuecards-web"
+            - name: APP_WEB_NAME_UI
+              value: "CUE CARDS"
