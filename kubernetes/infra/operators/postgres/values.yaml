@@ -4,10 +4,10 @@ image:
   tag: "16"
 
 postgresql:
-  existingSecret: postgres-secrets  
-  username: ""                   
-  password: ""               
-  database: ""                 
+  existingSecret: postgres-secrets
+  username: "cuecards"
+  database: "cuecards_db"
+  password: "123456"
 
 service:
   type: ClusterIP
