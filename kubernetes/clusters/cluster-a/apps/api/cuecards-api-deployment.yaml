@@ -18,120 +18,119 @@ spec:
       imagePullSecrets:
         - name: ghcr-secrets
       containers:
-      - name: cuecards-api
-        image: ghcr.io/grd-1/cuecards-api:e3917fdca4b91a2356c69eb6d38353f33fab3296
-        ports:
-          - containerPort: 3000
-        resources:
-          requests:
-            cpu: 250m
-            memory: 256Mi
-          limits:
-            cpu: 500m
-            memory: 512Mi
-        env:
-          # App info
-          - name: APP_API_ID
-            value: "a7ef69ad-708d-4f8e-b20c-98b99e36ffdc"
-          - name: APP_API_NAME
-            value: "CueCards API"
-          - name: APP_API_HOST
-            value: "api.cuecards.online"
-          - name: APP_API_PORT
-            value: "3000"
-          - name: APP_API_DOMAIN
-            value: "cuecards.online"
-          - name: NODE_ENV
-            value: "production"
+        - name: cuecards-api
+          image: ghcr.io/grd-1/cuecards-api:e3917fdca4b91a2356c69eb6d38353f33fab3296
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          env:
+            # App info
+            - name: APP_API_ID
+              value: "a7ef69ad-708d-4f8e-b20c-98b99e36ffdc"
+            - name: APP_API_NAME
+              value: "CueCards API"
+            - name: APP_API_HOST
+              value: "api.cuecards.online"
+            - name: APP_API_PORT
+              value: "3000"
+            - name: APP_API_DOMAIN
+              value: "cuecards.online"
+            - name: NODE_ENV
+              value: "production"
 
-          # Postgres
-          - name: POSTGRES_HOST
-            value: "postgres-postgresql"
-          - name: POSTGRES_PORT_EXTERNAL
-            value: "5432"
-          - name: POSTGRES_PORT_INTERNAL
-            value: "5432"
-          - name: POSTGRES_DB
-            valueFrom:
-              secretKeyRef:
-                name: cuecards-secrets
-                key: POSTGRES_DB
-          - name: POSTGRES_USER
-            valueFrom:
-              secretKeyRef:
-                name: cuecards-secrets
-                key: POSTGRES_USER
-          - name: POSTGRES_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: cuecards-secrets
-                key: POSTGRES_PASSWORD
-          - name: POSTGRES_URL
-            value: "postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@postgres-postgresql:5432/$(POSTGRES_DB)"
+            # Postgres
+            - name: POSTGRES_HOST
+              value: "postgres-postgresql.postgres"
+            - name: POSTGRES_PORT_EXTERNAL
+              value: "5432"
+            - name: POSTGRES_PORT_INTERNAL
+              value: "5432"
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: cuecards-secrets
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: cuecards-secrets
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cuecards-secrets
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_URL
+              value: "postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@postgres-postgresql.postgres:5432/$(POSTGRES_DB)"
 
-          # Redis
-          - name: REDIS_HOST
-            value: "redis-master"
-          - name: REDIS_PORT_EXTERNAL
-            value: "6379"
-          - name: REDIS_PORT_INTERNAL
-            value: "6379"
-          - name: REDIS_USERNAME
-            value: "default"
-          - name: REDIS_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: cuecards-secrets
-                key: REDIS_PASSWORD
+            # Redis
+            - name: REDIS_HOST
+              value: "redis-master"
+            - name: REDIS_PORT_EXTERNAL
+              value: "6379"
+            - name: REDIS_PORT_INTERNAL
+              value: "6379"
+            - name: REDIS_USERNAME
+              value: "default"
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cuecards-secrets
+                  key: REDIS_PASSWORD
 
-          # JWT
-          - name: JWT_ACCESS_TTL
-            value: "900"
-          - name: JWT_REFRESH_TTL
-            value: "604800"
+            # JWT
+            - name: JWT_ACCESS_TTL
+              value: "900"
+            - name: JWT_REFRESH_TTL
+              value: "604800"
 
-          # Email
-          - name: EMAIL_HOST
-            value: "smtp.example.com"
-          - name: EMAIL_PORT
-            value: "587"
-          - name: EMAIL_SECURE
-            value: "false"
-          - name: EMAIL_USER
-            valueFrom:
-              secretKeyRef:
-                name: cuecards-secrets
-                key: EMAIL_USER
-          - name: EMAIL_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: cuecards-secrets
-                key: EMAIL_PASSWORD
-          - name: EMAIL_TTL
-            value: "900"
+            # Email
+            - name: EMAIL_HOST
+              value: "smtp.example.com"
+            - name: EMAIL_PORT
+              value: "587"
+            - name: EMAIL_SECURE
+              value: "false"
+            - name: EMAIL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: cuecards-secrets
+                  key: EMAIL_USER
+            - name: EMAIL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cuecards-secrets
+                  key: EMAIL_PASSWORD
+            - name: EMAIL_TTL
+              value: "900"
 
-          # AWS SES
-          - name: AWS_ACCESS_KEY_ID
-            valueFrom:
-              secretKeyRef:
-                name: cuecards-secrets
-                key: AWS_ACCESS_KEY_ID
-          - name: AWS_SECRET_ACCESS_KEY
-            valueFrom:
-              secretKeyRef:
-                name: cuecards-secrets
-                key: AWS_SECRET_ACCESS_KEY
-          - name: AWS_SES_REGION
-            value: "us-east-1"
+            # AWS SES
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: cuecards-secrets
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: cuecards-secrets
+                  key: AWS_SECRET_ACCESS_KEY
+            - name: AWS_SES_REGION
+              value: "us-east-1"
 
-          # Default user
-          - name: DEFAULT_USER_ID
-            value: "00000000-0000-0000-0000-000000000000"
-          - name: DEFAULT_USER_EMAIL
-            value: "admin@cuecards.online"
-          - name: DEFAULT_USER_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: cuecards-secrets
-                key: DEFAULT_USER_PASSWORD
-
+            # Default user
+            - name: DEFAULT_USER_ID
+              value: "00000000-0000-0000-0000-000000000000"
+            - name: DEFAULT_USER_EMAIL
+              value: "admin@cuecards.online"
+            - name: DEFAULT_USER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cuecards-secrets
+                  key: DEFAULT_USER_PASSWORD
