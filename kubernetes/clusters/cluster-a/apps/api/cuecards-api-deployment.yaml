@@ -19,7 +19,7 @@ spec:
         - name: ghcr-secrets
       containers:
       - name: cuecards-api
-        image: ghcr.io/grd-1/cuecards-api:66f9042f528740ccf0aa9499c71aea6555e3d467
+        image: ghcr.io/grd-1/cuecards-api:58cb48a6875973a44eaf00b75f31fb57c3ef4238
         ports:
           - containerPort: 3000
         resources:
