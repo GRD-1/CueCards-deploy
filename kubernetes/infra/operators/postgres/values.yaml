@@ -5,9 +5,14 @@ image:
 
 postgresql:
   existingSecret: postgres-secrets
-  username: "cuecards"
-  database: "cuecards_db"
-  password: ""
+  database: "cuecards_db" # Database to create (owned by 'postgres' superuser)
+  username: "" # Empty - using only 'postgres' superuser
+  password: "" # Empty when using existingSecret - password comes from secret
+  secretKeys:
+    # Map Bitnami chart's expected keys to our secret keys
+    adminPasswordKey: postgres-password # Password for 'postgres' superuser
+    userPasswordKey: postgres-password # Same as admin - using only postgres user
+    replicationPasswordKey: postgres-password # Same password for replication user
 
 service:
   type: ClusterIP
