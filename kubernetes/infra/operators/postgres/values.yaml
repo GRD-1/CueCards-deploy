@@ -7,7 +7,7 @@ postgresql:
   existingSecret: postgres-secrets
   username: "cuecards"
   database: "cuecards_db"
-  password: "123456"
+  password: ""
 
 service:
   type: ClusterIP
